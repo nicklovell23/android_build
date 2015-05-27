@@ -55,6 +55,8 @@ if [ "$TARGET_UNIFIED_DEVICE" == "" ] ; then
     echo "ro.build.thumbprint=$BUILD_THUMBPRINT"
   fi
 fi
+echo "ro.slimremix.device=$TARGET_DEVICE"
+echo "ro.slimremix.model=$PRODUCT_MODEL"
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
 echo "ro.slim.device=$SLIM_DEVICE"

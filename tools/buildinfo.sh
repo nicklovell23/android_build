@@ -59,4 +59,6 @@ echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
 echo "ro.slim.device=$SLIM_DEVICE"
 
+echo "ro.slimremix.version=$SLIMREMIX_VERSION"
+
 echo "# end build properties"

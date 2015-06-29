@@ -10,6 +10,7 @@ ifneq ($(BUILD_WITH_COLORS),0)
   CL_MAG="\033[35m"
   CL_CYN="\033[36m"
   CL_RST="\033[0m"
+  CL_BLD="\033[1m"
 endif
 
 # HACK: clear LOCAL_PATH from including last build target before calling
@@ -1711,9 +1712,20 @@ SLIMREMIX_TARGET_PACKAGE := $(PRODUCT_OUT)/$(SLIMREMIX_BUILD_VERSION).zip
 .PHONY: otapackage bacon bootzip
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
+	$(hide) find $(PRODUCT_OUT) -maxdepth 1 -xdev -samefile $(INTERNAL_OTA_PACKAGE_TARGET) | grep -v ota-eng | xargs rm -f
+	$(hide) rm -f $(PRODUCT_OUT)/*.md5sum
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(SLIMREMIX_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(SLIMREMIX_TARGET_PACKAGE) > $(SLIMREMIX_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_CYN}"Package Complete: $(SLIMREMIX_TARGET_PACKAGE)"${CL_RST}
+	$(hide) (cd `dirname $(SLIMREMIX_TARGET_PACKAGE)` && $(MD5SUM) `basename $(SLIMREMIX_TARGET_PACKAGE)` > $(SLIMREMIX_TARGET_PACKAGE).md5sum)
+	@echo -e ""
+	@echo -e ${CL_BLD}${CL_GRN}"===============================-Package complete-==============================="${CL_RST}
+	@echo -e ${CL_BLD}${CL_RED}"Zip: "${CL_CYN} $(SLIMREMIX_TARGET_PACKAGE)${CL_RST}
+	@echo -e ${CL_BLD}${CL_RED}"MD5: "${CL_CYN}" `cat $(SLIMREMIX_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
+ifeq ($(HOST_OS),darwin)
+	@echo -e ${CL_BLD}${CL_RED}"Size:"${CL_CYN}" `ls -lah $(SLIMREMIX_TARGET_PACKAGE) | cut -d ' ' -f 9`"${CL_RST}
+else
+	@echo -e ${CL_BLD}${CL_RED}"Size:"${CL_CYN}" `ls -lah $(SLIMREMIX_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
+endif
+	@echo -e ${CL_BLD}${CL_GRN}"================================================================================"${CL_RST}
 
 bootzip: bootimage
 	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \

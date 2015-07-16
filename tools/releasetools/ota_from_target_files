@@ -589,8 +589,8 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   system_progress = 0.75
 
   script.Print("                    _____________________ ")
-  script.Print("                   /     www.slimroms.eu |")
-  script.Print("                  /                      |")
+  script.Print("                   /                     |")
+  script.Print("                  /      By ZION959      |")
   script.Print("                 /    ___________________|")
   script.Print("                /    /    ___             ")
   script.Print("               /    / ___/   \            ")
@@ -600,6 +600,13 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("|               /    |   |   |   |   |   |")
   script.Print("|              /     |   |   |   |   |   |")
   script.Print("|_____________/      \___^___^___^___^___/")
+  script.Print("                                          ")
+  script.Print("           ______               _         ")
+  script.Print("           | ___ \             (_)        ")
+  script.Print("           | |_/ /___ _ __ ___  ___  __   ")
+  script.Print("           |    // _ \ '_ ` _ \| \ \/ /   ")
+  script.Print("           | |\ \  __/ | | | | | |>  <    ")
+  script.Print("           \_| \_\___|_| |_| |_|_/_/\_\   ")
   script.Print(" ")
 
   if OPTIONS.wipe_user_data:
